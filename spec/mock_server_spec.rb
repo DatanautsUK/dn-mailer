@@ -18,8 +18,6 @@ describe MockServer do
   it 'returns json' do
     get '/', name: 'Joe'
     
-    expect(jbody['subject']).to eql 'Hello Joe'
-    expect(jbody['body']['html']).to eql '<html><body>Test email to Joe</body></html>'
-    expect(jbody['body']['text']).to eql 'Test email to Joe'
+    expect(jbody[:html_part]).to eql '<html><body>Test email to Joe</body></html>'
   end
 end

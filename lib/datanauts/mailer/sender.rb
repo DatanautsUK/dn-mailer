@@ -35,11 +35,11 @@ module Datanauts::Mailer
 
       email.html_part = Mail::Part.new do
         content_type 'text/html; charset=UTF-8'
-        body message[:body][:html]
+        body message[:html_part]
       end
 
       email.text_part = Mail::Part.new do
-        body message[:body][:text]
+        body message[:text_part]
       end
 
       if ENV['RACK_ENV'] == 'local'

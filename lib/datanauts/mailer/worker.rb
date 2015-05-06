@@ -10,10 +10,14 @@ module Datanauts::Mailer
     
     include Sidekiq::Worker
     
-    def perform(to_address, url, params)
-      email = @fetcher.fetch(url, params)
+    def perform(email)
+      Hashie.symbolize_keys! email
+      
+      if fetch_location = email.delete(:fetch)
+        email.merge! @fetcher.fetch(fetch_location[:url], fetch_location[:params])
+      end
 
-      @sender.mail(email.merge(to_address: to_address))
+      @sender.mail(email)
     end
   end
 end

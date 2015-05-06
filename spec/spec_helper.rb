@@ -10,7 +10,7 @@ ENV['RACK_ENV'] = 'test'
 Sidekiq::Testing.inline!
 
 def jbody
-  JSON.parse last_response.body
+  JSON.parse last_response.body, symbolize_names: true
 end
 
 Mail.defaults do
