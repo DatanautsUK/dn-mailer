@@ -2,15 +2,18 @@ require 'sidekiq'
 
 module Datanauts::Mailer
   class Worker
+    
+    def initialize
+      @fetcher = Fetcher.new
+      @sender = Sender.new(CONFIG['mailer'] || {})
+    end
+    
     include Sidekiq::Worker
     
-    def self.client
-      @client ||= HTTPClient.new
-    end
-  
-    
-    def perform(url, params)
-      email = self.class.client.get url, params
+    def perform(to_address, url, params)
+      email = @fetcher.fetch(url, params)
+
+      @sender.mail(email.merge(to_address: to_address))
     end
   end
 end
