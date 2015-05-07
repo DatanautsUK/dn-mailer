@@ -10,6 +10,15 @@ module Datanauts::Mailer
     
     include Sidekiq::Worker
     
+    # ==================
+    # = email example 
+    # = { 
+    # =  to_address: 'marek@datanauts.co.uk', 
+    # =  subject: "test", 
+    # =  html_part: '<html><brody>Hello</body></html>, 
+    # =  text_part: 'Hello'
+    # = } 
+    # ==================
     def perform(email)
       Hashie.symbolize_keys! email
       
