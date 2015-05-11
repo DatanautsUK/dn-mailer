@@ -1,0 +1,18 @@
+
+# ===============================
+# = mailer process startup file =
+# ===============================
+
+
+# ROOT_DIR = File.expand_path File.dirname(__FILE__)
+
+# require 'rubygems'
+# require 'bundler'
+
+# running_env = ENV["RACK_ENV"]
+# puts "Running in #{running_env} mode"
+# Bundler.require(:default)
+
+# require 'yaml'
+
+# CONFIG = YAML.load_file("#{ROOT_DIR}/config/global.yaml").merge(YAML.load_file("#{ROOT_DIR}/config/#{ ENV['RACK_ENV'] }.yaml"))
