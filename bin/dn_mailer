@@ -1,18 +1,17 @@
+#!/usr/bin/env ruby
 
-# ===============================
-# = mailer process startup file =
-# ===============================
+command = ARGV[0]
+other_switches = ARGV[1..-1].join(" ") if ARGV.length > 0
 
+case command
+ when "start"
+  path = File.expand_path(File.dirname(__FILE__)+"/../lib/datanauts-mailer.rb")
+  command_line = "bundle exec sidekiq -q mailer -r #{path} #{other_switches}"
+  puts command_line
 
-# ROOT_DIR = File.expand_path File.dirname(__FILE__)
-
-# require 'rubygems'
-# require 'bundler'
-
-# running_env = ENV["RACK_ENV"]
-# puts "Running in #{running_env} mode"
-# Bundler.require(:default)
-
-# require 'yaml'
-
-# CONFIG = YAML.load_file("#{ROOT_DIR}/config/global.yaml").merge(YAML.load_file("#{ROOT_DIR}/config/#{ ENV['RACK_ENV'] }.yaml"))
+  system(command_line)
+ when "stop"
+  `bundle exec sidekiqctl stop #{other_switches}`
+else
+  puts "USAGE: dn_mailer start|stop"
+end
