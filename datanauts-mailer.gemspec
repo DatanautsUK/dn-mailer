@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "webmock"
 
+  spec.add_dependency "mail"
   spec.add_dependency "sidekiq", "~> 3.3.4"
   spec.add_dependency "httpclient"
   spec.add_dependency "hashie"
