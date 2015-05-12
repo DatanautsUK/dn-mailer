@@ -4,6 +4,7 @@ module Datanauts::Mailer
   class Sender
 
     def initialize(config = {})
+      Hashie.symbolize_keys! config
       raise ArgumentError, "You must supply a from domain" unless config[:from_domain]
 
       @config = {
