@@ -5,12 +5,12 @@ module Datanauts::Mailer
 
     def initialize(config = {})
       raise ArgumentError, "You must supply a from domain" unless config[:from_domain]
-      
+
       @config = {
         test_email: 'test@obdev.co.uk',
         test_domains: %w(obdev.co.uk osbornebrook.co.uk datanauts.co.uk)
       }.merge(config)
-      
+
       @config[:from_address] ||= "noreply@#{@config[:from_domain]}"
     end
 
@@ -43,12 +43,12 @@ module Datanauts::Mailer
       end
 
       if ENV['RACK_ENV'] == 'local'
-        # puts email.encoded
+        puts email.encoded
       else
         email.deliver! unless ENV["NO_MAIL"]
       end
 
     end
-    
+
   end
 end
