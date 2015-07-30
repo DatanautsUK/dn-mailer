@@ -6,9 +6,9 @@ module Datanauts::Mailer
 
     sidekiq_options :queue => :mailer
 
-    def initialize
+    def setup(config)
       @fetcher = Fetcher.new
-      @sender = Sender.new(CONFIG['mailer'] || {})
+      @sender = Sender.new(config)
     end
 
 
@@ -23,6 +23,7 @@ module Datanauts::Mailer
     # ==================
     def perform(email)
       Hashie.symbolize_keys! email
+      setup(from_domain: email[:from_domain])
 
       if fetch_location = email.delete(:fetch)
         email.merge! @fetcher.fetch(fetch_location[:url], fetch_location[:params])
